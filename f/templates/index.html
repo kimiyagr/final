@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% set active_page = "index" %}
+{% block content %}
+
+<div class="main-container">
+    <div class="main-text-container">
+        <h1>Meet and Like</h1>
+        <p>Join Our community and find new friends.</p>
+        <ul class="main-items">
+            <li>More than 1 Billion Users</li>
+            <li>Easy to use</li>
+            <li>High security</li>
+        </ul>
+        <h3 class="sign-main-text">You don't have an Account?!</h3>
+        <p>Sign Up Now and ENJOY</p>
+        <a class="btn btn-primary main-btn" href="{{url_for('sign_up')}}" role="button">Sign Up</a>
+    </div>
+    <div class="img-container">
+        <img src="{{ url_for('static',filename='images/social-media.png') }}" alt="image" class="main-image">
+    </div>
+</div>
+
+
+{% endblock %}

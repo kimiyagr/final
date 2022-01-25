@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% set active_page = "new-post" %}
+{% block content %}
+
+<div class="sign-container">
+    <form method="POST" class="sign-form">
+        <div class="mb-3">
+            <label class="form-label">Post Title</label>
+            <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Post Text</label>
+            <textarea class="form-control" id="text" rows="10" name="text"></textarea>
+        </div>
+        <input type="submit" class="btn btn-primary main-btn" value="Post">
+    </form>
+    <div class="sign-image-container">
+        <img src="{{ url_for('static',filename='images/new-post.png') }}" class="sign-image">
+    </div>
+</div>
+
+{% endblock %}

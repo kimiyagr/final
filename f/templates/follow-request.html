@@ -1,0 +1,34 @@
+{% extends "dashboard-base.html" %}
+{% set active_page = "follow-request" %}
+{% block dashboard_content %}
+
+
+<div class="post-container">
+    {% if follows == [] %}
+    <div class="post-alert">
+        <h2>You don't follow anyone!</h2>
+        <a href="{{url_for('people')}}" class="btn btn-primary">See People</a>
+    </div>
+    {% else %}
+    {% for user in follow_list %}
+    <div class="card my-post-card">
+        <h5 class="card-header">
+            {{user.username}}
+        </h5>
+        <div class="card-body">
+            <p class="card-text">{{user.firstname}} {{user.lastname}}</p>
+            <form method="post">
+                <input type="hidden" value="{{user.id}}" id="accept" name="accept">
+                <input type="submit" class="btn btn-success" value="Accept">
+            </form>
+            <form method="post">
+                <input type="hidden" value="{{user.id}}" id="reject" name="reject">
+                <input type="submit" class="btn btn-danger" value="Reject">
+            </form>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+{% endblock %}

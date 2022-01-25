@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% set active_page = "signup" %}
+{% block content %}
+
+<div class="sign-container">
+    <form class="sign-form" method="POST">
+        <h2 class="signup-text">Sign Up</h2>
+        {% if err %}
+        <p class="err-text">{{ err }}</p>
+        {% endif %}
+            <input type="text" class="form-control" id="firstname" name="firstname" placeholder="First Name">
+
+            <input type="text" class="form-control" id="lastname" name="lastname" placeholder="Last Name">
+
+            <input type="text" class="form-control" id="username" name="username" placeholder="Username">
+
+            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+
+            <input type="password" class="form-control" id="conf-password" name="conf-password" placeholder="Confirmed Password">
+        
+            <input type="submit" class="btn btn-primary main-btn" value="Sign Up">
+    </form>
+    <div class="sign-image-container">
+        <img src="{{ url_for('static',filename='images/add-user.png') }}" class="sign-image">
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% set active_page = "people" %}
+{% block content %}
+
+<div class="container">
+    <div class="row height d-flex justify-content-center align-items-center">
+        <div class="col-md-8">
+            <form method="post" class="search"> 
+                 <i class="fa fa-search"></i>
+                 <input type="text" class="form-control" placeholder="Find Your Friends" name="search" id="search"> 
+                 <input type="submit" class="btn btn-primary search-btn" value="Search"> 
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    {% for user in user_list %}
+        
+        <div class="card people-card">
+            <h5 class="card-header">{{user["username"]}}</h5>
+            <div class="card-body">
+                <h6 class="card-title">{{user["firstname"]}} {{user["lastname"]}}</h6>
+
+                    {% if (user["id"], "accept") in followed_users_id_list %}
+                        <form method="post">
+                            <input type="hidden" name="unfollow-id" value="{{user['id']}}" id="unfollow-id">
+                            <input type="submit" class="btn btn-danger" value="Unfollow">
+                        </form>
+                    {% endif %}
+                    {% if (user["id"], "pending") in followed_users_id_list %}
+                        <form method="post">
+                            <input type="hidden" name="pending-id" value="{{user['id']}}" id="pending-id">
+                            <input type="submit" class="btn btn-primary" value="Pending">
+                        </form>
+                    {% elif (user["id"], "pending") not in followed_users_id_list and (user["id"], "accept") not in followed_users_id_list%}
+                        <form method="post">
+                            <input type="hidden" name="id" value="{{user['id']}}" id="id">
+                            <input type="submit" class="btn btn-success" value="Follow">
+                        </form>
+                    {% endif %}
+
+            </div>
+        </div>
+   
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "dashboard-base.html" %}
+{% set active_page = "following" %}
+{% block dashboard_content %}
+
+<div class="following-container">
+    {% for user in following_user_list %}
+
+    <div class="card my-post-card">
+        <h5 class="card-header">{{user["username"]}}</h5>
+        <div class="card-body">
+            <h6 class="card-title">{{user["firstname"]}} {{user["lastname"]}}</h6>
+            <form method="post">
+                <input type="hidden" name="unfollow-id" value="{{user['id']}}" id="unfollow-id">
+                <input type="submit" class="btn btn-danger" value="Unfollow">
+            </form>
+        </div>
+    </div>
+
+    {% endfor %}
+</div>
+
+{% endblock %}

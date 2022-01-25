@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% set active_page = "home" %}
+{% block content %}
+
+{% if alert %}
+<div class="home-alert">
+    <h2>{{alert}}</h2>
+    <a class="btn btn-primary main-btn" href="{{url_for('people')}}" role="button">Find Friends</a>
+</div>
+{% else %}
+<div class="home-post-container">
+    {% for user in followed_user_list %}
+    {% for post in user.posts %}
+    {% set like_count = post.likes | length %}
+        <div class="card my-post-card">
+            <h5 class="card-header">
+                {{user.username}}
+            </h5>
+            <div class="card-body">
+                <h6 class="card-header">
+                    {{post.title}}
+                </h6>
+                <p class="card-text">{{post.text}}</p>
+                {% if (g.user_id, post.id) in user_like_list %}
+                    <form method="post">
+                        <input type="hidden" value="{{post.id}}" id="unlike" name="unlike">
+                        <input type="submit" class="btn btn-danger" value="Unlike">
+                    </form>
+                {% else %}
+                    <form method="post">
+                        <input type="hidden" value="{{post.id}}" id="like" name="like">
+                        <input type="submit" class="btn btn-success" value="Like">
+                    </form>
+                {% endif %}
+                <p class="card-text">{{like_count}} likes</p>
+                <p class="card-text">{{post.created_date}}</p>
+            </div>
+        </div>
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endif %}
+
+
+{% endblock %}

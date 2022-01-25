@@ -1,0 +1,33 @@
+{% extends "dashboard-base.html" %}
+{% set active_page = "dashboard" %}
+{% block dashboard_content %}
+
+<div class="post-container">
+    {% if user_posts == [] %}
+    <div class="post-alert">
+        <h2>You don't have any post!</h2>
+        <a href="{{url_for('new_post')}}" class="btn btn-primary">Add Post</a>
+    </div>
+    {% else %}
+    {% for post in user_posts %}
+    {% set like_count = post.likes | length %}
+    <div class="card my-post-card">
+        <h5 class="card-header">
+            {{post.title}}
+        </h5>
+        <div class="card-body">
+            <p class="card-text">{{post.text}}</p>
+            <form method="post">
+                <input type="hidden" value="{{post.id}}" id="post-id" name="post-id">
+                <input type="submit" class="btn btn-danger" value="delete">
+            </form>
+            <p class="card-text">{{like_count}} likes</p>
+            <p class="card-text">{{post.created_date}}</p>
+        </div>
+    </div>
+    {% endfor %}
+    {% endif %}
+</div>
+
+
+{% endblock %}

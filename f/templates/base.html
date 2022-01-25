@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Social Media</title>
+    <style>
+        #navbarNav{
+            direction: rtl;
+        }
+        .navbar{
+            padding: 10px 60px 10px 80px;
+        }
+        .main-container{
+            display: flex;
+            justify-content: space-between;
+            margin: 40px 80px;
+        } 
+        .main-image, .sign-image{
+            width: 460px;
+        }
+        .main-text-container{
+            margin-top: 40px;
+        }
+        .main-items{
+            margin-top: 45px;
+        }
+        .sign-main-text{
+            margin-top: 70px;
+        }
+        .main-btn{
+            padding:10px 60px;
+        }
+        .sign-container{
+          display: flex;
+          justify-content: space-between;
+          margin-top: 40px;
+          margin: 40px 60px 0px 100px;
+        }
+        .sign-form{
+          display: flex !important;
+          flex-direction: column;
+          align-items: left;
+        }
+        .signup-text{
+          margin-bottom: 30px;
+        }
+        .sign-image-container2{
+          
+          margin-right: 40px;
+        }
+        input{
+          margin-bottom: 17px;
+        }
+        .err-text{
+          color: red;
+          padding: 0;
+          font-size: 14px;
+        }
+        .dashboard-container{
+          display: flex;
+          justify-content: space-between;
+        }
+        .dash-nav{
+
+          padding: 0px 80px !important;
+        }
+        .dash-link{
+          margin-bottom: 60px;
+        }
+        .post-container{
+          display: flex;
+          margin: 30px 0px 30px 90px;
+          direction: ltr;
+          flex-wrap: wrap;
+        }
+        .my-post-card{
+          margin-bottom: 10px;
+          margin-right: 110px !important;
+          max-width: 410px;
+          min-width: 410px;
+        }
+        .search {
+          position: relative;
+          box-shadow: 0 0 40px rgba(51, 51, 51, .1)
+        }
+        .search input {
+          height: 60px;
+          text-indent: 25px;
+          border: 2px solid #d6d4d4
+        }
+        .search input:focus {
+          box-shadow: none;
+          border: 2px solid blue
+        }
+        .search .fa-search {
+          position: absolute;
+          top: 20px;
+          left: 16px
+        }
+        .search button {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          height: 50px;
+          width: 110px;
+          background: blue
+        }
+        .search-btn{
+          position: absolute;
+          top: 0px;
+          right: 5px;
+          height: 50px;
+          width: 90px;
+          background: blue;
+          padding-right: 110px;
+          border-radius: 17px;
+          text-align: center;
+        }
+        .people-card{
+          max-width: 620px;
+          margin: auto;
+          margin-top: 20px;
+        }
+        .post-alert{
+          margin: auto;
+          text-align: center;
+          margin-right: 400px;
+        }
+        .home-post-container{
+          display: flex;
+          flex-wrap: wrap;
+          margin: 20px 00px 20px 180px;
+          align-items: center;
+        }
+        .following-container{
+          margin:auto;
+        }
+        .home-alert{
+          margin-top: 90px;
+          text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          {% if g.username %}
+            <a class="navbar-brand" href="#">Welcome {{ g.username }}</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" aria-current="page" href="{{url_for('sign_out')}}">Sign Out</a>
+                </li>
+                <li class="nav-item">
+                  <a class="{{ 'nav-link active' if active_page == 'people' else 'nav-link' }}" aria-current="page" href="{{url_for('people')}}">People</a>
+                </li>
+                <li class="nav-item">
+                  <a class="{{ 'nav-link active' if active_page == 'dashboard' else 'nav-link' }}" href="{{url_for('dashboard')}}">Dashboard</a>
+                </li>
+                <li class="nav-item">
+                  <a class="{{ 'nav-link active' if active_page == 'new-post' else 'nav-link' }}" href="{{url_for('new_post')}}">New Post</a>
+                </li>
+                <li class="nav-item">
+                  <a class="{{ 'nav-link active' if active_page == 'home' else 'nav-link' }}" href="{{url_for('home')}}">Home</a>
+                </li>
+              </ul>
+            </div>
+          {% else %}
+          <img src="{{ url_for('static',filename='images/social-networks.png') }}" alt="">
+          <a class="navbar-brand" href="#">Social Media</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="{{ 'nav-link active' if active_page == 'signin' else 'nav-link' }}" aria-current="page" href="{{url_for('sign_in')}}">Sign In</a>
+              </li>
+              <li class="nav-item">
+                <a class="{{ 'nav-link active' if active_page == 'signup' else 'nav-link' }}" href="{{url_for('sign_up')}}">Sign Up</a>
+              </li>
+              <li class="nav-item">
+                <a class="{{ 'nav-link active' if active_page == 'index' else 'nav-link' }}" href="{{url_for('index')}}">Home</a>
+              </li>
+            </ul>
+          </div>
+          {% endif %}
+        </div>
+      </nav>
+      {% block content %}{% endblock %}
+</body>
+</html>
